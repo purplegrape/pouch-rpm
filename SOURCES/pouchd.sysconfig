@@ -1,0 +1,1 @@
+OPTIONS="--containerd-path /usr/bin/containerd --lxcfs /usr/bin/lxcfs --cni-bin-dir /usr/libexec/cni"

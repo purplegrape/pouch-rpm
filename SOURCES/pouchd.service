@@ -1,0 +1,19 @@
+[Unit]
+Description=pouchd
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+EnvironmentFile=-/etc/sysconfig/pouchd
+ExecStartPre=/sbin/modprobe overlay
+ExecStart=/usr/bin/pouchd $OPTIONS
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGINT
+Restart=on-failure
+StartLimitBurst=3
+StartLimitInterval=60s
+Delegate=yes
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

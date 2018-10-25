@@ -1,0 +1,17 @@
+[Unit]
+Description=FUSE filesystem for LXC
+ConditionVirtualization=!container
+Before=lxc.service
+Documentation=man:lxcfs(1)
+
+[Service]
+ExecStart=/usr/bin/lxcfs /var/lib/pouch-lxcfs/
+ExecStartPost=/usr/bin/pouch remount-lxcfs
+ExecStopPost=-/usr/bin/fusermount -u /var/lib/pouch-lxcfs
+KillMode=process
+Restart=on-failure
+Delegate=yes
+
+[Install]
+WantedBy=multi-user.target
+
